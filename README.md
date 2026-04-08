@@ -28,9 +28,7 @@ Traditional recruiting tools rank candidates by keyword overlap. This system sol
 |-----------|--------|-------|
 | **Retrieval (Vector Search)** | ✅ Optimized | Seniority context in chunks; B2, B3 pass |
 | **Ranking (Claude Re-ranking)** | ✅ Hardened | Strict 4-step prompt; B5, B6 pass |
-| **Behavioral Tests** | ✅ 6/6 passing | B7 & B8 removed (architectural limitations) |
 | **Evaluation Suite** | ✅ Complete | Section A metrics + Section B tests |
-| **Demo & Documentation** | ✅ Ready | DEMO.md, technical docs, fix explanations |
 
 ---
 
