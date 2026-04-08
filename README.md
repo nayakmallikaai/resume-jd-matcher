@@ -405,30 +405,6 @@ docker-compose up
 
 ---
 
-## Quick Start: Demo & Testing
-
-### Run the Full Evaluation
-
-```bash
-python eval.py
-```
-
-**Output**: Section A metrics + Section B behavioral tests (6/6 should pass)
-
-### Run Only Behavioral Tests
-
-```bash
-python eval.py --section b
-```
-
-**Expected**: All 6 tests pass
-- B1: Keyword gaming caught
-- B2: Synonym matching works
-- B3: Seniority confusion resolved
-- B4: Stale expertise flagged
-- B5: Vague JD returns medium/low confidence
-- B6: Overqualification flagged
-
 ### Generate & Test Synthetic Resumes
 
 ```bash
@@ -441,21 +417,6 @@ Creates 25 synthetic resumes across 4 seniority levels, stores in database.
 ```bash
 python resume_synthesizer.py --dry-run --out resumes.json
 ```
-
-### Live Demo
-
-1. Start the server:
-```bash
-uvicorn ingest:app --reload
-```
-
-2. Open http://localhost:8000 — Resume upload UI
-
-3. Open http://localhost:8000/search — Job search UI
-
-See [`DEMO.md`](DEMO.md) for 5 pre-written JD examples to paste into the search UI.
-
----
 
 ## API Endpoints
 
@@ -544,32 +505,6 @@ Content-Type: application/json
 
 ## Running the Evaluation Suite
 
-### Full Evaluation
-
-```bash
-python eval.py
-```
-
-Output:
-```
-── SECTION A: Standard Metrics (4 test cases) ──
-TC1 (Senior Backend): Precision 0.85, Recall 0.92, NDCG 0.89, MRR 0.97
-TC2 (ML Engineer): Precision 0.80, Recall 0.88, NDCG 0.84, MRR 0.94
-...
-
-── SECTION B: Behavioral Tests ──
-✓ B1: Keyword present, wrong context
-✓ B2: Right experience, no keywords
-...
-✓ B8: Aggregation — distributed skills surface correctly
-
-Behavioral: 8/8 passed ✓
-
-═══════════════════════════════════════════════════════════
-SYSTEM QUALITY SCORE: 8/8 behavioral + strong metric performance
-═══════════════════════════════════════════════════════════
-```
-
 ### Selective Sections
 
 ```bash
@@ -578,10 +513,6 @@ python eval.py --section b          # Only Section B (behavioral)
 python eval.py --k 5                # Evaluate at top-5 instead of top-10
 python eval.py --no-teardown        # Keep seed data in DB after eval
 ```
-
-### What Each Test Checks
-
-See [DEMO.md](DEMO.md) for detailed behavioral test explanations and assertions.
 
 ---
 
@@ -839,12 +770,6 @@ Claude's response is malformed (usually truncated due to token limits). Check:
 1. Is the JD very long? Try shortening to <500 chars
 2. Are there many special characters in the JD? Try plain language
 3. Increase `max_tokens` in `rank_candidates()` call
-
----
-
-## License & Contact
-
-This project is internal. For questions, contact the AI Platform team.
 
 ---
 
