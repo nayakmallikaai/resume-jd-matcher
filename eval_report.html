@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eval Report — Resume-JD Matcher</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          background: #f4f6f9; color: #1a1a2e; padding: 32px 20px; }
+  .wrap { max-width: 1060px; margin: 0 auto; }
+
+  /* Header */
+  header { margin-bottom: 32px; }
+  header h1 { font-size: 1.6rem; font-weight: 700; }
+  header p  { color: #6b7280; font-size: 0.875rem; margin-top: 4px; }
+
+  /* Summary cards */
+  .cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 40px; }
+  .card  { background: #fff; border-radius: 10px; padding: 20px 18px;
+             box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+  .card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+                  letter-spacing: .05em; color: #6b7280; }
+  .card-value { font-size: 1.9rem; font-weight: 700; color: #6366f1; margin-top: 4px; line-height: 1; }
+  .card-sub   { font-size: 0.72rem; color: #9ca3af; margin-top: 4px; }
+
+  /* Sections */
+  .section       { margin-bottom: 40px; }
+  .section-title { font-size: 1rem; font-weight: 700; padding-bottom: 10px;
+                    border-bottom: 2px solid #e5e7eb; margin-bottom: 18px; color: #374151; }
+
+  /* Metric test case cards */
+  .tc-card  { background: #fff; border-radius: 10px; padding: 22px 24px; margin-bottom: 14px;
+               box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+  .tc-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 14px; }
+  table  { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th     { text-align: left; padding: 8px 12px; background: #f9fafb; color: #6b7280;
+             font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  td     { padding: 8px 12px; border-top: 1px solid #f0f0f0; vertical-align: middle; }
+  tr.adv-row td { background: #fafafa; font-size: 0.82rem; color: #6b7280; }
+
+  /* Bar charts */
+  .bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .bar      { height: 8px; border-radius: 4px; max-width: 160px; min-width: 3px; }
+  .bar-val  { font-size: 0.82rem; font-weight: 600; color: #374151; min-width: 36px; }
+
+  /* Badges */
+  .badge      { display: inline-block; padding: 2px 8px; border-radius: 10px;
+                  font-size: 0.72rem; font-weight: 700; vertical-align: middle; }
+  .badge-pass { background: #d1fae5; color: #065f46; }
+  .badge-fail { background: #fee2e2; color: #991b1b; }
+
+  /* Behavioral rows */
+  .beh-row      { display: flex; gap: 14px; padding: 14px 16px; border-radius: 8px;
+                    margin-bottom: 8px; border: 1px solid #e5e7eb; background: #fff; }
+  .beh-pass     { border-left: 3px solid #10b981; }
+  .beh-fail     { border-left: 3px solid #ef4444; }
+  .beh-icon     { font-size: 1.1rem; flex-shrink: 0; padding-top: 1px; }
+  .beh-body     { flex: 1; min-width: 0; }
+  .beh-name     { font-weight: 700; font-size: 0.9rem; margin-bottom: 3px; }
+  .beh-desc     { font-size: 0.82rem; color: #6b7280; margin-bottom: 6px; }
+  .beh-expect,
+  .beh-detail   { font-size: 0.8rem; color: #374151; margin-top: 4px;
+                    display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+  .beh-tag      { display: inline-block; background: #e0e7ff; color: #3730a3;
+                    border-radius: 3px; padding: 1px 6px; font-size: 0.68rem;
+                    font-weight: 700; text-transform: uppercase; flex-shrink: 0; }
+
+  @media (max-width: 700px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Resume-JD Matcher — Evaluation Report</h1>
+    <p>Generated 2026-04-08 15:45:24 &nbsp;·&nbsp; K = 10</p>
+  </header>
+
+  <div class="cards"><div class="card"><div class="card-label">precision_at_k (k=10)</div><div class="card-value">0.000</div><div class=card-sub>avg Claude-ranked</div></div><div class="card"><div class="card-label">retrieval_recall</div><div class="card-value">0.000</div><div class=card-sub>avg Claude-ranked</div></div><div class="card"><div class="card-label">ndcg_score</div><div class="card-value">0.000</div><div class=card-sub>avg Claude-ranked</div></div><div class="card"><div class="card-label">mrr</div><div class="card-value">0.000</div><div class=card-sub>avg Claude-ranked</div></div><div class="card"><div class="card-label">behavioral</div><div class="card-value">3/6</div><div class=card-sub>tests passed</div></div></div>
+
+  <div class="section">
+    <div class="section-title">Section A — Retrieval &amp; Ranking Metrics</div>
+    <p>No metric tests run.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Section B — Behavioral Tests</div>
+    <div class="beh-row beh-pass"><div class="beh-icon">✓</div><div class="beh-body"><div class="beh-name">B1: Keyword present, wrong context&nbsp;<span class="badge badge-pass">PASS</span></div><div class="beh-desc">Data analyst (Python/pandas/ETL) should not surface for ML Engineer JD.</div><div class="beh-expect"><span class="beh-tag">expect</span>ADV data analyst absent or ranked > 5 in retrieval</div><div class="beh-detail"><span class="beh-tag">detail</span>Data analyst rank in retrieval: absent</div></div></div><div class="beh-row beh-fail"><div class="beh-icon">✗</div><div class="beh-body"><div class="beh-name">B2: Right experience, no keywords&nbsp;<span class="badge badge-fail">FAIL</span></div><div class="beh-desc">Candidate using domain synonyms (no exact JD keywords) should still rank top-3.</div><div class="beh-expect"><span class="beh-tag">expect</span>Dmitri Volkov (synonym vocabulary) retrieval rank ≤ 5</div><div class="beh-detail"><span class="beh-tag">detail</span>Synonym candidate retrieval rank: 6</div></div></div><div class="beh-row beh-fail"><div class="beh-icon">✗</div><div class="beh-body"><div class="beh-name">B3: Seniority confusion — humble senior > verbose junior&nbsp;<span class="badge badge-fail">FAIL</span></div><div class="beh-desc">Wei Liu (understated 9-yr senior) should rank above Tyler Brooks (inflated junior).</div><div class="beh-expect"><span class="beh-tag">expect</span>Humble senior retrieval rank < verbose junior retrieval rank</div><div class="beh-detail"><span class="beh-tag">detail</span>Humble senior rank: 14 | Verbose junior rank: 7</div></div></div><div class="beh-row beh-pass"><div class="beh-icon">✓</div><div class="beh-body"><div class="beh-name">B4: Stale expertise&nbsp;<span class="badge badge-pass">PASS</span></div><div class="beh-desc">Hadoop/MapReduce expert (last used 2016) flagged for modern distributed systems JD.</div><div class="beh-expect"><span class="beh-tag">expect</span>Robert Miller flagged as stale_expertise OR ranked > 8 in retrieval</div><div class="beh-detail"><span class="beh-tag">detail</span>stale_expertise flag: False | retrieval rank: absent</div></div></div><div class="beh-row beh-pass"><div class="beh-icon">✓</div><div class="beh-body"><div class="beh-name">B5: Vague JD — no high-confidence results&nbsp;<span class="badge badge-pass">PASS</span></div><div class="beh-desc">A vague JD should not produce any high-confidence matches.</div><div class="beh-expect"><span class="beh-tag">expect</span>No ranked result has confidence='high' for a vague JD</div><div class="beh-detail"><span class="beh-tag">detail</span>Confidence values: ['medium', 'medium', 'medium', 'medium', 'medium', 'medium', 'low', 'low', 'medium', 'low']</div></div></div><div class="beh-row beh-fail"><div class="beh-icon">✗</div><div class="beh-body"><div class="beh-name">B6: Overqualification flagged in reasoning&nbsp;<span class="badge badge-fail">FAIL</span></div><div class="beh-desc">Staff engineer (Alexandra Hunt) for a mid-level role must carry 'overqualified' flag.</div><div class="beh-expect"><span class="beh-tag">expect</span>Alexandra Hunt has 'overqualified' in flags</div><div class="beh-detail"><span class="beh-tag">detail</span>overqualified flag present: False</div></div></div>
+  </div>
+
+</div>
+</body>
+</html>

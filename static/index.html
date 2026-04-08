@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Resume Ingestor</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f4f6f9;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1a1a2e;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-bottom: 28px;
+    }
+
+    /* Drop zone */
+    .drop-zone {
+      border: 2px dashed #d1d5db;
+      border-radius: 8px;
+      padding: 36px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+
+    .drop-zone.drag-over {
+      border-color: #6366f1;
+      background: #eef2ff;
+    }
+
+    .drop-zone.has-file {
+      border-color: #10b981;
+      background: #f0fdf4;
+    }
+
+    .drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .drop-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      display: block;
+      pointer-events: none;
+    }
+
+    .drop-label {
+      font-size: 0.9rem;
+      color: #374151;
+      pointer-events: none;
+    }
+
+    .drop-label span {
+      color: #6366f1;
+      font-weight: 600;
+    }
+
+    .drop-hint {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      margin-top: 6px;
+      pointer-events: none;
+    }
+
+    /* File info */
+    .file-info {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: #f9fafb;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    .file-info.visible { display: flex; }
+
+    .file-name {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #111827;
+      font-weight: 500;
+    }
+
+    .file-size { color: #6b7280; white-space: nowrap; }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #9ca3af;
+      font-size: 1rem;
+      line-height: 1;
+      padding: 2px;
+      transition: color 0.15s;
+    }
+
+    .remove-btn:hover { color: #ef4444; }
+
+    /* Error */
+    .error-box {
+      display: none;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #b91c1c;
+    }
+
+    .error-box.visible { display: flex; }
+
+    /* Upload button */
+    .upload-btn {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+
+    .upload-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .upload-btn:not(:disabled):hover { background: #4f46e5; }
+
+    /* Spinner */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Result */
+    .result-card {
+      display: none;
+      margin-top: 24px;
+      padding: 18px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+    }
+
+    .result-card.visible { display: block; }
+
+    .result-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #059669;
+      margin-bottom: 12px;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 5px 12px;
+      font-size: 0.85rem;
+    }
+
+    .result-key { color: #6b7280; white-space: nowrap; }
+    .result-val { color: #111827; font-weight: 500; overflow-wrap: anywhere; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      background: #e0e7ff;
+      color: #3730a3;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+      <h1>Resume Ingestor</h1>
+      <a href="/search" style="font-size:0.85rem;color:#6366f1;text-decoration:none;font-weight:500;">JD Matcher &#8594;</a>
+    </div>
+    <p class="subtitle">Upload a candidate resume to extract and store their profile.</p>
+
+    <div class="drop-zone" id="dropZone" role="button" aria-label="Upload resume PDF" tabindex="0">
+      <input type="file" id="fileInput" accept=".pdf" aria-label="Select PDF file">
+      <span class="drop-icon" aria-hidden="true">&#128196;</span>
+      <p class="drop-label">Drag &amp; drop or <span>browse</span></p>
+      <p class="drop-hint">PDF only &middot; max 150 KB</p>
+    </div>
+
+    <div class="file-info" id="fileInfo" role="status">
+      <span class="file-name" id="fileName"></span>
+      <span class="file-size" id="fileSize"></span>
+      <button class="remove-btn" id="removeBtn" aria-label="Remove selected file" title="Remove">&#10005;</button>
+    </div>
+
+    <div class="error-box" id="errorBox" role="alert" aria-live="assertive">
+      <span aria-hidden="true">&#9888;</span>
+      <span id="errorMsg"></span>
+    </div>
+
+    <button class="upload-btn" id="uploadBtn" disabled>Upload Resume</button>
+
+    <div class="result-card" id="resultCard" role="region" aria-label="Ingestion result">
+      <div class="result-title">Ingested successfully</div>
+      <div class="result-grid" id="resultGrid"></div>
+      <div class="tags" id="resultTags"></div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

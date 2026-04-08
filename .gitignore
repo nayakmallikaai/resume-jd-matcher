@@ -1,0 +1,13 @@
+.env
+*.jpg
+*.mp4
+*.mov
+*.png
+*.gif
+*.mp3
+*.wav
+*.mp
+*pycache
+RANKING_CHANGES.md
+RETRIEVAL_FIXES.md
+CHUNK_FORMAT_FIX.md

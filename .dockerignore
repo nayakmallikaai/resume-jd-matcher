@@ -1,0 +1,21 @@
+# Secrets — never bake into image
+.env
+
+# Git
+.git
+.gitignore
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.egg-info
+.pytest_cache
+
+# Generated output — not needed at runtime
+resumes.json
+eval_report*.html
+
+# Local model cache — rebuilt inside image via Dockerfile
+.cache

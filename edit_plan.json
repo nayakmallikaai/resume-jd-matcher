@@ -1,0 +1,29 @@
+{
+  "sections": [
+    {
+      "name": "JD Matcher Intro",
+      "in": 0,
+      "out": 60,
+      "duration": 60
+    },
+    {
+      "name": "Resume Ingestor",
+      "in": 60,
+      "out": 120,
+      "duration": 60
+    },
+    {
+      "name": "Candidate Results",
+      "in": 180,
+      "out": 420,
+      "duration": 240
+    },
+    {
+      "name": "LinkedIn Context",
+      "in": 500,
+      "out": 600,
+      "duration": 100
+    }
+  ],
+  "total_duration": 460
+}
