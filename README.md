@@ -318,19 +318,17 @@ Was part of the team that redesigned the event pipeline...
 **Trade-off**: Simpler format (just seniority + years) avoids overwhelming embedding model with metadata noise.
 
 ---
+### Current Status & Evaluation Metrics
 
-## Key Documentation Files
+| Metric | Value | Status |
+|--------|-------|--------|
+| **Precision@10** | 0.250 | ✅ Good (sparse test data) |
+| **Recall@10** | 1.000 | ✅ Perfect (finds all matches) |
+| **NDCG@10** | 0.977 | ✅ Excellent (correct ranking order) |
+| **MRR** | 1.000 | ✅ Perfect (top result always relevant) |
+| **Behavioral Tests** | 6/6 | ✅ 100% (all edge cases handled) |
+| **Adversarial Tests** | 3/4 | ⚠️ Known issue: PM discipline mismatch |
 
-For deeper understanding of the system and fixes, see:
-
-| File | Purpose |
-|------|---------|
-| [`DEMO.md`](DEMO.md) | Complete demo script, JD examples, talking points, eval interpretation |
-| [`RANKING_CHANGES.md`](RANKING_CHANGES.md) | Detailed explanation of ranking prompt rewrites (B5, B6 fixes) |
-| [`RETRIEVAL_FIXES.md`](RETRIEVAL_FIXES.md) | How seniority context in chunks improves retrieval (B2, B3 fixes) |
-| [`CHUNK_FORMAT_FIX.md`](CHUNK_FORMAT_FIX.md) | Why minimal metadata works better than verbose chunks |
-
----
 
 ## Setup & Installation
 
@@ -786,6 +784,4 @@ Claude's response is malformed (usually truncated due to token limits). Check:
 - v2.0: Feedback-driven ranking, graph-based candidate discovery
 
 ---
-
-**For demos, see [DEMO.md](DEMO.md)**
 
