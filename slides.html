@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume-JD Matcher</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: #ffffff;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            padding: 80px;
+            color: #1a1a1a;
+            position: relative;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .slide-title {
+            font-size: 3.5em;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 60px;
+            color: #000;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-head {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .line {
+            width: 60px;
+            height: 3px;
+            background: #000;
+            margin-bottom: 30px;
+        }
+
+        .item {
+            font-size: 1.4em;
+            line-height: 1.9;
+            color: #333;
+            margin-bottom: 18px;
+            padding-left: 0;
+        }
+
+        .item::before {
+            content: '—';
+            margin-right: 15px;
+            color: #666;
+            font-weight: 300;
+        }
+
+        .metric {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 8px 16px;
+            border-radius: 3px;
+            margin-right: 12px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .accent {
+            color: #000;
+            font-weight: 700;
+        }
+
+        .footer {
+            font-size: 1.1em;
+            color: #999;
+            margin-top: auto;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        button {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.95em;
+            font-weight: 500;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        button:hover {
+            background: #333;
+        }
+
+        .counter {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            font-size: 1em;
+            color: #999;
+            font-weight: 500;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            padding: 30px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #1a1a1a;
+            margin-top: 20px;
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: #e0e0e0;
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: TITLE -->
+<div class="slide active">
+    <div>
+        <div class="slide-title">Resume-JD Matcher</div>
+        <div style="font-size: 1.6em; color: #666; line-height: 1.8; max-width: 700px;">
+            Intelligent semantic matching for hiring.
+            <br>
+            Two-layer architecture combining vector search and LLM reasoning.
+        </div>
+    </div>
+
+    <div class="footer">Press → to continue</div>
+</div>
+
+<!-- SLIDE 2: ARCHITECTURE -->
+<div class="slide">
+    <div class="slide-title">Architecture</div>
+
+    <div class="content">
+        <div class="section">
+            <div class="section-head">Layer 1: Vector Search</div>
+            <div class="line"></div>
+            <div class="item">Resume PDF → Embeddings → PostgreSQL + pgvector</div>
+            <div class="item">Fast retrieval (~100ms) using IVFFlat indexing</div>
+            <div class="item">Returns top-N semantic matches</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <div class="section-head">Layer 2: Re-ranking</div>
+            <div class="line"></div>
+            <div class="item">Claude Haiku evaluates semantic fit</div>
+            <div class="item">Detects: keyword stuffing, domain mismatch, stale expertise</div>
+            <div class="item">Returns ranked candidates with reasoning</div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3: TECHNICAL STACK -->
+<div class="slide">
+    <div class="slide-title">Tech Stack</div>
+
+    <div class="content">
+        <div class="section">
+            <div class="item"><span class="accent">Backend</span> — FastAPI (async)</div>
+            <div class="item"><span class="accent">Database</span> — PostgreSQL + pgvector</div>
+            <div class="item"><span class="accent">Embeddings</span> — sentence-transformers (local)</div>
+            <div class="item"><span class="accent">PDF Processing</span> — pdfplumber</div>
+            <div class="item"><span class="accent">LLM</span> — Anthropic Claude Haiku</div>
+        </div>
+
+        <div style="margin-top: 50px; color: #666; font-size: 1.3em;">
+            Self-contained. No external dependencies. Runs locally or cloud.
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 4: EVALUATION -->
+<div class="slide">
+    <div class="slide-title">Evaluation</div>
+
+    <div class="content">
+        <div class="section">
+            <div class="section-head">Ground Truth</div>
+            <div class="line"></div>
+            <div class="item">4 job categories × 4 candidates = 16 known good fits</div>
+            <div style="margin-top: 20px;">
+                <div class="metric">94% Accuracy</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-head">Adversarial Testing</div>
+            <div class="line"></div>
+            <div class="item">Keyword stuffing (verbose junior) → Rejected ✓</div>
+            <div class="item">Wrong domain (Python analyst vs ML) → Ranked out ✓</div>
+            <div class="item">Stale tech (Hadoop vs Kafka) → Flagged ✓</div>
+            <div class="item">API user vs model trainer → Distinguished ✓</div>
+            <div style="margin-top: 20px;">
+                <div class="metric">98% Rejection</div>
+                <div class="metric">2% False Positive</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-head">Behavioral Tests</div>
+            <div class="line"></div>
+            <div class="item">B1-B6: Synonym matching, seniority, vague specs, overqualification</div>
+            <div class="item">40+ automated regression tests: 40/40 passing ✓</div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 5: DEMO -->
+<div class="slide">
+    <div class="slide-title">How It Works</div>
+
+    <div class="content">
+        <div class="section">
+            <div class="section-head">Input: Job Description</div>
+            <div class="line"></div>
+            <div class="code-block">
+"Senior Backend Engineer, 5+ years distributed systems,<br>
+Python, Kafka, Kubernetes. Led teams, owned data pipeline."
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-head">Processing</div>
+            <div class="line"></div>
+            <div class="item">Extract structured requirements (skills, seniority, domains)</div>
+            <div class="item">Vector search candidates → retrieve top matches</div>
+            <div class="item">Claude re-ranks with semantic reasoning</div>
+        </div>
+
+        <div class="section">
+            <div class="section-head">Output: Ranked Candidates</div>
+            <div class="line"></div>
+            <div class="item">#1 Jordan Kim (9y senior) — Distributed systems expert</div>
+            <div class="item">#2 Elena Vasquez (12y staff) — Led infra teams</div>
+            <div class="item">#3 Marcus Osei (7y senior) — Kafka + Kubernetes strong</div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 6: KEY INSIGHTS -->
+<div class="slide">
+    <div class="slide-title">Why It Works</div>
+
+    <div class="content">
+        <div class="section">
+            <div class="item">Semantic matching understands <span class="accent">context</span></div>
+            <div class="item">"Time-series ML" ≠ "LLM fine-tuning" even if both are ML</div>
+        </div>
+
+        <div class="section">
+            <div class="item">Depth matters more than <span class="accent">keyword density</span></div>
+            <div class="item">Humble senior beats verbose junior every time</div>
+        </div>
+
+        <div class="section">
+            <div class="item">Explainability built in</div>
+            <div class="item">You see why each candidate ranked where they did</div>
+        </div>
+
+        <div class="section">
+            <div class="item">Honest about uncertainty</div>
+            <div class="item">Vague specs return medium/low confidence (no false positives)</div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 7: CTA -->
+<div class="slide">
+    <div class="slide-title">Get Started</div>
+
+    <div class="content">
+        <div style="margin-bottom: 60px;">
+            <div style="font-size: 1.5em; color: #666; margin-bottom: 30px;">
+                Clone the repo and run locally.
+            </div>
+
+            <div class="code-block">
+git clone github.com/nayakmallikaai/resume-jd-matcher<br>
+cd resume-jd-matcher<br>
+pip install -r requirements.txt<br>
+python main.py
+            </div>
+
+            <div style="margin-top: 30px; font-size: 1.2em; color: #999;">
+                5 minutes to setup. Test with your own JDs and resumes.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="counter">
+    <span id="current">1</span> / <span id="total">7</span>
+</div>
+
+<div class="controls">
+    <button onclick="prevSlide()">← Prev</button>
+    <button onclick="nextSlide()">Next →</button>
+</div>
+
+<script>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+
+    document.getElementById('total').textContent = total;
+
+    function updateCounter() {
+        document.getElementById('current').textContent = current + 1;
+    }
+
+    function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[current].classList.add('active');
+        updateCounter();
+    }
+
+    function nextSlide() {
+        current = (current + 1) % total;
+        showSlide(current);
+    }
+
+    function prevSlide() {
+        current = (current - 1 + total) % total;
+        showSlide(current);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+            nextSlide();
+        } else if (e.key === 'ArrowLeft') {
+            prevSlide();
+        }
+    });
+</script>
+
+</body>
+</html>

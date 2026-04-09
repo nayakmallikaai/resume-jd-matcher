@@ -209,12 +209,16 @@ def _store_experiences(
     experiences: list[dict],
     seniority: str = "",
     total_years: int = 0,
+    key_topics: list[str] | None = None,
 ) -> None:
+    key_topics = key_topics or []
     for i, exp in enumerate(experiences):
-        # Enhanced chunk with seniority context (but not too verbose)
-        # Helps vector search understand depth without overwhelming embedding
+        # Enhanced chunk: seniority context + top skills (balanced approach)
+        # Helps with depth signal (B3) and synonym matching (B2)
+        # Include top 5 key topics to help with semantic matching
+        top_skills = ", ".join(key_topics[:5]) if key_topics else ""
         chunk = (
-            f"Seniority: {seniority} ({total_years} yrs)\n"
+            f"Seniority: {seniority} ({total_years} yrs) | Skills: {top_skills}\n"
             f"{exp.get('title', '')} at {exp.get('company', '')} "
             f"({exp.get('duration', '')})\n{exp.get('description', '')}"
         ).strip()
@@ -251,6 +255,7 @@ def bulk_store(resumes: list[dict], embedder: SentenceTransformer) -> None:
                     cur, embedder, resume_id, r.get("experience", []),
                     seniority=r.get("seniority", ""),
                     total_years=r.get("total_years", 0),
+                    key_topics=r.get("key_topics", []),
                 )
                 stored += 1
                 if stored % 10 == 0:
