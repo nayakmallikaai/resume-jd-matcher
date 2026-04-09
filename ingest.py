@@ -497,7 +497,7 @@ def rank_candidates(candidates: list[dict], job_description: str, top_n: int = 1
 # ---------------------------------------------------------------------------
 
 class SearchRequest(BaseModel):
-    job_description: str = Field(..., min_length=10, max_length=500)
+    job_description: str = Field(..., min_length=10)
 
 
 # ---------------------------------------------------------------------------

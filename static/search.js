@@ -1,6 +1,5 @@
 "use strict";
 
-const MAX_CHARS = 500;
 const MIN_CHARS = 10;
 
 const jdInput       = document.getElementById("jdInput");
@@ -18,8 +17,8 @@ const resultList    = document.getElementById("resultList");
 
 jdInput.addEventListener("input", () => {
   const len = jdInput.value.length;
-  charCounter.textContent = `${len} / ${MAX_CHARS}`;
-  charCounter.className = "char-counter" + (len > 480 ? " warn" : "") + (len >= MAX_CHARS ? " over" : "");
+  charCounter.textContent = `${len} character${len !== 1 ? "s" : ""}`;
+  charCounter.className = "char-counter";
   clearError();
   resultsSection.style.display = "none";
 });
@@ -124,11 +123,6 @@ async function doSearch() {
 
   if (jd.length < MIN_CHARS) {
     showError(`Job description must be at least ${MIN_CHARS} characters.`);
-    return;
-  }
-
-  if (jd.length > MAX_CHARS) {
-    showError(`Job description must be ${MAX_CHARS} characters or fewer.`);
     return;
   }
 
