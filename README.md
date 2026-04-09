@@ -242,12 +242,6 @@ Tests specific failure modes to ensure the system understands nuance beyond keyw
 #### Expected Results (After All Fixes)
 
 ```
-── SECTION A: Metrics ──
-TC1 (Senior Backend): Precision 0.85, Recall 0.92, NDCG 0.89, MRR 0.97 ✓
-TC2 (ML Engineer): Precision 0.80, Recall 0.88, NDCG 0.84, MRR 0.94 ✓
-TC3 (Product Manager): Precision 0.90, Recall 0.95, NDCG 0.91, MRR 0.98 ✓
-TC4 (AI Engineer Fine-tuning): Precision 0.85, Recall 0.92, NDCG 0.88, MRR 0.96 ✓
-
 ── SECTION B: Behavioral Tests (6 Core Tests) ──
 ✓ B1: Keyword present, wrong context (ADV-2 absent/low)
 ✓ B2: Right experience, no keywords (Dmitri rank ≤ 5)
