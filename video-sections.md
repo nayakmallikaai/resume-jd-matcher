@@ -2,8 +2,8 @@
 
 ## Summary
 - **Original**: 808 seconds (13:28) @ 203 MB
-- **Edited**: 460 seconds (7:40) @ 28 MB  
-- **Reduction**: 43% shorter, 86% smaller file size
+- **Edited**: 430 seconds (7:10) @ 26 MB  
+- **Reduction**: 47% shorter, 87% smaller file size
 
 ---
 
@@ -27,29 +27,29 @@
 
 ---
 
-## Section 2: Resume Ingestor (1:00 - 2:00)
-**Duration**: 60 seconds
+## Section 2: Resume Ingestor (1:00 - 1:30)
+**Duration**: 30 seconds
 
 **Visual Content**:
 - "Resume Ingestor" page with description: "Upload a candidate resume to extract and store their profile"
 - Drag & drop upload area (green dashed border)
-- File upload showing "MallikaNavak_Resume.pdf" (5.9 KB)
-- Error message: "Unexpected response from server"
-- Blue "Upload Resume" button
+- File icon and upload interface
+- "Drag & drop or browse" call-to-action text
+- PDF format support note: "PDF only • max 150 KB"
 
 **Voiceover Key Points**:
 - Explain the Resume Ingestor module
 - Show the drag-and-drop interface
 - Mention PDF format support and file size limit (150 KB max)
-- Note: The error shown is part of demo flow (can mention error handling)
+- Emphasize ease of use
 
 **Suggested Script Example**:
 *"The Resume Ingestor handles candidate profile extraction. You can drag and drop or browse for PDF files up to 150 KB. The system extracts and stores candidate information for seamless matching."*
 
 ---
 
-## Section 3: Candidate Results & Ranking (2:00 - 5:00)
-**Duration**: 240 seconds (4 minutes - longest section)
+## Section 3: Candidate Results & Ranking (1:30 - 5:30)
+**Duration**: 240 seconds (4 minutes - core feature section)
 
 **Visual Content**:
 - JD Matcher page with new job description: "Looking for a strong engineer to join our growing team..."
@@ -81,7 +81,7 @@
 
 ---
 
-## Section 4: LinkedIn Context Example (5:00 - 6:20)
+## Section 4: LinkedIn Context Example (5:30 - 6:40)
 **Duration**: 100 seconds
 
 **Visual Content**:
@@ -93,7 +93,7 @@
   - Redis Senior Product Manager (Tel Aviv, Israel)
   - Microsoft AI Principal Product Manager (Paris)
 - Job detail panel showing Product Manager role at Microsoft AI
-- Highlighted qualifications section (pink/magenta background)
+- Highlighted qualifications section
 - Requirements and preferred qualifications listed
 
 **Voiceover Key Points**:

@@ -846,6 +846,11 @@ BEHAVIORAL_TESTS = [
 
 def seed_db(conn) -> list:
     inserted = []
+    # Clear existing data first to avoid stale results from previous runs
+    with conn.cursor() as cur:
+        cur.execute("DELETE FROM resumes")
+    conn.commit()
+
     with conn.cursor() as cur:
         for r in ALL_SEED_RESUMES:
             rid = r["_id"]
@@ -854,6 +859,7 @@ def seed_db(conn) -> list:
                 cur, embedder, rid, r.get("experience", []),
                 seniority=r.get("seniority", ""),
                 total_years=r.get("total_years", 0),
+                key_topics=r.get("key_topics", []),
             )
             inserted.append(rid)
     conn.commit()

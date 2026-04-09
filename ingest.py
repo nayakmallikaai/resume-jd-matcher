@@ -415,10 +415,57 @@ def vector_search(conn, query_embedding: np.ndarray, limit: int = 20) -> list[di
         return [dict(zip(cols, row)) for row in cur.fetchall()]
 
 
+def _infer_jd_seniority(job_description: str) -> str | None:
+    """Extract implied seniority level from JD text."""
+    jd_lower = job_description.lower()
+
+    # Check for explicit seniority keywords
+    if any(word in jd_lower for word in ["principal", "principal engineer"]):
+        return "principal"
+    if any(word in jd_lower for word in ["staff engineer", "staff-level"]):
+        return "staff"
+    if any(word in jd_lower for word in ["senior ", "7+", "8+", "9+", "10+"]):
+        return "senior"
+    if any(word in jd_lower for word in ["mid-level", "mid level", "3-4", "3-6", "4-5", "4-6"]):
+        return "mid"
+    if any(word in jd_lower for word in ["junior", "entry-level", "entry level", "0-2", "1-3"]):
+        return "junior"
+
+    return None
+
+
+def _apply_overqualification_flags(ranked: list[dict], job_description: str, candidates_by_name: dict) -> list[dict]:
+    """Post-process Claude's ranking to add overqualified flags where warranted."""
+    jd_seniority = _infer_jd_seniority(job_description)
+    if not jd_seniority:
+        return ranked
+
+    seniority_levels = {"junior": 0, "mid": 1, "senior": 2, "staff": 3, "principal": 4}
+    jd_level = seniority_levels.get(jd_seniority, 0)
+
+    for r in ranked:
+        candidate_name = r.get("name")
+        if candidate_name in candidates_by_name:
+            cand_seniority = candidates_by_name[candidate_name].get("seniority", "").lower()
+            cand_level = seniority_levels.get(cand_seniority, 0)
+
+            # If candidate seniority exceeds JD seniority, flag as overqualified
+            if cand_level > jd_level:
+                if "flags" not in r or r["flags"] is None:
+                    r["flags"] = []
+                if "overqualified" not in r["flags"]:
+                    r["flags"].append("overqualified")
+
+    return ranked
+
+
 def rank_candidates(candidates: list[dict], job_description: str, top_n: int = 10) -> list[dict]:
     """Feed top vector-search hits to Claude Haiku for intelligent ranking."""
     candidate_text = ""
+    candidates_by_name = {}
+
     for i, c in enumerate(candidates, 1):
+        candidates_by_name[c['name']] = c
         topics = ", ".join(c.get("key_topics") or [])
         candidate_text += (
             f"--- Candidate {i} ---\n"
@@ -437,7 +484,12 @@ def rank_candidates(candidates: list[dict], job_description: str, top_n: int = 1
     )
     raw = _call_haiku(prompt, max_tokens=4096)
     result = _parse_json(raw)
-    return result if isinstance(result, list) else []
+    ranked = result if isinstance(result, list) else []
+
+    # Apply overqualification flags post-hoc
+    ranked = _apply_overqualification_flags(ranked, job_description, candidates_by_name)
+
+    return ranked
 
 
 # ---------------------------------------------------------------------------
